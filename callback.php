@@ -28,12 +28,19 @@ $user_phone_number = $data->Body->stkCallback->CallbackMetadata->Item[4]->Value;
 
 // Create an array to store the transaction details from the MPESA API for later use in the application, such as storing in a database or sending a notification to the user
 $result_data = {
-    "merchant_request_id" : $merchant_request_id,
-    "checkout_request_id" : $checkout_request_id,
-    "result_code" : $result_code,
-    "result_desc" : $result_desc,
+    "merchant_request_id": $merchant_request_id,
+    "checkout_request_id": $checkout_request_id,
+    "result_code": $result_code,
+    "result_desc": $result_desc,
     "amount": $amount,
-    "transaction_id" : $transaction_id,
-    "user_phone_number" : $user_phone_number
+    "transaction_id": $transaction_id,
+    "user_phone_number": $user_phone_number
 };
+
+// Check if the transaction was successful by checking the result code and print the transaction details, otherwise print the error message 
+if ($result_code == 0) {
+  // You can store the transaction details in a database or send a notification to the user about the successful transaction here, using the $result_data array for the transaction details
+  $encoded_result_data = json_encode($result_data);
+  // Add database insert code here to store the transaction details in a database, using the $encoded_result_data variable for the transaction details
+}
 ?>

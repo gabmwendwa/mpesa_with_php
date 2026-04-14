@@ -68,4 +68,18 @@ curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
 // Execute the curl request and get the response from the MPESA API
 $curl_response = curl_exec($curl);
 echo $curl_response;
+
+
+// Decode the JSON response from the MPESA API to get the checkout request ID and the response code
+$data = json_decode($curl_response);
+
+$checkout_request_id = $data->CheckoutRequestID;
+// echo "Checkout request ID is : " . $checkout_request_id . "\n";
+
+$response_code = $data->ResponseCode;
+// echo "Response code is : " . $response_code . "\n";
+
+// If the response code is 0, then the transaction was successful and we can print the checkout request ID, otherwise we can print the error message
+echo $response_code == "0" ? "Transaction checkout request ID is : " . $checkout_request_id : "Transaction failed: " . $data->errorMessage;
+
 ?>
